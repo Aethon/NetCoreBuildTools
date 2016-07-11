@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>aethon</authors>
+    <owners>aethon</owners>
+    <projectUrl>http://github.com/aethon/NetCoreBuildTools</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/Aethon/StaticResources/master/aethon-icon/nuget.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>$description$</description>
+    <releaseNotes>Initial release</releaseNotes>
+    <copyright>Copyright 2016 Brent McCullough</copyright>
+    <tags>.NetCore project.json ci build</tags>
+  </metadata>
+</package>
