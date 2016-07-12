@@ -6,11 +6,12 @@
     <title>$title$</title>
     <authors>aethon</authors>
     <owners>aethon</owners>
-    <projectUrl>http://github.com/aethon/NetCoreBuildTools</projectUrl>
+    <projectUrl>http://github.com/Aethon/NetCoreBuildTools</projectUrl>
     <iconUrl>https://raw.githubusercontent.com/Aethon/StaticResources/master/aethon-icon/nuget.png</iconUrl>
+    <licenseUrl>https://github.com/Aethon/NetCoreBuildTools/blob/master/LICENSE</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Initial release</releaseNotes>
+    <releaseNotes>Retargeted to net45 (for cake build)</releaseNotes>
     <copyright>Copyright 2016 Brent McCullough</copyright>
     <tags>.NetCore project.json ci build</tags>
   </metadata>
