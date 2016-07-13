@@ -1,6 +1,6 @@
 ﻿using System;
-using System.IO;
 using System.IO.Abstractions;
+using System.Text.RegularExpressions;
 using Newtonsoft.Json.Linq;
 
 namespace Aethon.NetCoreBuildTools
@@ -10,7 +10,6 @@ namespace Aethon.NetCoreBuildTools
         private readonly IFileSystem _fileSystem;
 
         public string ProjectPath { get; }
-        public string Version { get; }
         public string Copyright { get; }
         public string ProjectUrl { get; }
         public string LicenseUrl { get; }
@@ -30,10 +29,9 @@ namespace Aethon.NetCoreBuildTools
             _fileSystem = fileSystem ?? new FileSystem();
         }
 
-        private NetCoreProject(string projectPath, string version, string copyright, string projectUrl, string licenseUrl, string iconUrl, IFileSystem filesystem)
+        private NetCoreProject(string projectPath, string copyright, string projectUrl, string licenseUrl, string iconUrl, IFileSystem filesystem)
         {
             ProjectPath = projectPath;
-            Version = version;
             Copyright = copyright;
             ProjectUrl = projectUrl;
             LicenseUrl = licenseUrl;
@@ -41,14 +39,13 @@ namespace Aethon.NetCoreBuildTools
             _fileSystem = filesystem;
         }
 
-        public NetCoreProject With(string version = null, string copyright = null, string projectUrl = null, string licenseUrl = null, string iconUrl = null) =>
-            new NetCoreProject(ProjectPath, version ?? Version, copyright ?? Copyright, projectUrl ?? ProjectUrl, licenseUrl ?? LicenseUrl, iconUrl ?? IconUrl, _fileSystem);
+        public NetCoreProject With(string copyright = null, string projectUrl = null, string licenseUrl = null, string iconUrl = null) =>
+            new NetCoreProject(ProjectPath, copyright ?? Copyright, projectUrl ?? ProjectUrl, licenseUrl ?? LicenseUrl, iconUrl ?? IconUrl, _fileSystem);
 
         public T Apply<T>(Func<T> action)
         {
             var text = _fileSystem.File.ReadAllText(ProjectPath);
             var json = JObject.Parse(text);
-            Set(json, "version", Version);
             Set(json, "copyright", Copyright);
             Set(json, "projectUrl", ProjectUrl);
             Set(json, "licenseUrl", LicenseUrl);
@@ -62,6 +59,33 @@ namespace Aethon.NetCoreBuildTools
             finally
             {
                 _fileSystem.File.WriteAllText(ProjectPath, text);
+            }
+        }
+
+        private static readonly Regex SuffixPattern = new Regex(@"^([0-9]+(?:\.[0-9]+)*)(.*)$");
+
+        public void UpdateVersion(string version)
+        {
+            var text = _fileSystem.File.ReadAllText(ProjectPath);
+            var json = JObject.Parse(text);
+            var currentVersion = json["version"];
+            if (currentVersion != null)
+            {
+                var match = SuffixPattern.Match(currentVersion.ToString());
+                if (match.Success)
+                {
+                    var v = match.Groups[1].Value;
+                    if (v == version)
+                        version = null;
+                    else
+                        version += match.Groups[2].Value;
+                }
+            }
+
+            if (version != null)
+            {
+                json["version"] = version;
+                _fileSystem.File.WriteAllText(ProjectPath, json.ToString());
             }
         }
 

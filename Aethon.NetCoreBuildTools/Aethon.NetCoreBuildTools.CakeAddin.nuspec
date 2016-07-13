@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Aethon.NetCoreBuildTools.CakeAddin</id>
+    <version>2.0.0.0</version>
+    <title>Aethon's NetCoreBuildTools packaged for Cake build</title>
+    <authors>aethon</authors>
+    <owners>aethon</owners>
+    <projectUrl>http://github.com/Aethon/NetCoreBuildTools</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/Aethon/StaticResources/master/aethon-icon/nuget.png</iconUrl>
+    <licenseUrl>https://github.com/Aethon/NetCoreBuildTools/blob/master/LICENSE</licenseUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Tools to keep build pipelines sane while .NET Core matures</description>
+    <releaseNotes>Included all dependencies as DLLs to satisfy Cake build issues</releaseNotes>
+    <copyright>Copyright 2016 Brent McCullough</copyright>
+    <tags>.NetCore project.json ci build cake</tags>
+  </metadata>
+  <files>
+    <file src="bin\Debug\*.dll" target="lib/net45" />
+  </files>
+</package>

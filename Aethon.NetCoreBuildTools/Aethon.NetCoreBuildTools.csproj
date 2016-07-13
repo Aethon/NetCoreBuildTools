@@ -56,6 +56,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Aethon.NetCoreBuildTools.CakeAddin.nuspec">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Aethon.NetCoreBuildTools.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>
